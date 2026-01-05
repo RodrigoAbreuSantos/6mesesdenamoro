@@ -2,9 +2,13 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMOR DA MINHA VIDA ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Amor da Minha Vida ❤️</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
         /* CONFIGURAÇÕES GERAIS */
         :root {
@@ -12,14 +16,20 @@
             --bg-color: #fce4ec;
             --text-color: #4a4a4a;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
-            padding-bottom: 60px;
+            /* Respeita as áreas seguras do iPhone (Notch/Ilha Dinâmica) */
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            -webkit-font-smoothing: antialiased; /* Texto mais nítido no iOS */
         }
 
         /* TELA DE INÍCIO */
@@ -32,28 +42,32 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 1s;
+            transition: opacity 0.8s ease-out;
+            padding: 20px;
+            text-align: center;
         }
         #overlay h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .btn-enter {
-            padding: 18px 45px;
-            font-size: 1.2rem;
+            padding: 20px 60px; /* Botão maior para toque */
+            font-size: 1.1rem;
             background: var(--primary);
             color: white;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(194, 24, 91, 0.3);
+            box-shadow: 0 10px 25px rgba(194, 24, 91, 0.3);
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             animation: pulse 2s infinite;
         }
-        .btn-enter:hover { transform: scale(1.05); }
+        .btn-enter:active { transform: scale(0.95); }
 
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -64,111 +78,68 @@
         /* CONTEÚDO PRINCIPAL */
         #main {
             opacity: 0;
-            transition: opacity 2s;
+            transition: opacity 1.5s;
             display: none;
+            padding-bottom: 80px; /* Espaço extra no final */
         }
 
         /* CABEÇALHO */
         header {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px 20px;
         }
         header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: 3rem; /* Ajustado para mobile */
             color: var(--primary);
             margin: 10px 0;
+            line-height: 1.1;
         }
         .date {
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 3px;
             text-transform: uppercase;
+            font-weight: 600;
         }
 
-        /* VÍDEO (MUDO E SEM CONTROLES) */
+        /* VÍDEO (MUDO, SEM CONTROLES, AJUSTADO P/ TELA) */
         .video-container {
-            width: 90%;
+            width: 85%; /* Um pouco menor para não colar nas bordas */
             max-width: 350px;
-            margin: 0 auto 50px;
-            border-radius: 20px;
+            margin: 20px auto 40px;
+            border-radius: 25px; /* Bordas mais arredondadas estilo iOS */
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            border: 8px solid white;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            border: 6px solid white;
             background: #000;
             position: relative;
+            transform: translateZ(0); /* Aceleração de hardware */
         }
         video {
             width: 100%;
             height: auto;
             display: block;
             pointer-events: none;
-        }
-
-        /* CARROSSEL DE FOTOS */
-        .carousel-section {
-            margin: 60px 0;
-            background: white;
-            padding: 40px 0;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-        .carousel-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 30px;
-        }
-        .slider {
-            height: 350px;
-            margin: auto;
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-        }
-        
-        /* CÁLCULO: 11 fotos + 11 duplicadas = 22 slides */
-        .slide-track {
-            display: flex;
-            width: calc(250px * 22);
-            animation: scroll 45s linear infinite;
-        }
-        
-        .slide {
-            height: 350px;
-            width: 250px;
-            padding: 0 15px;
-            display: flex;
-            align-items: center;
-        }
-        .slide img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-250px * 11)); }
         }
 
         /* CARTA */
         .letter-container {
-            max-width: 800px;
+            width: 90%;
+            max-width: 600px;
             margin: 0 auto 50px;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 25px;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
-            border: 1px solid rgba(194, 24, 91, 0.1);
+            border: 1px solid rgba(194, 24, 91, 0.05);
         }
         .letter-text {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 1rem;
+            line-height: 1.7;
             color: #555;
             text-align: justify;
         }
@@ -176,51 +147,116 @@
             margin-top: 30px;
             font-family: 'Playfair Display', serif;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--primary);
+        }
+
+        /* CARROSSEL */
+        .carousel-section {
+            margin: 40px 0;
+            background: white;
+            padding: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        }
+        .carousel-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+        .slider {
+            height: 300px; /* Um pouco menor no mobile para caber melhor */
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+        .slide-track {
+            display: flex;
+            width: calc(200px * 22); /* Reduzi a largura da foto para 200px no mobile */
+            animation: scroll 40s linear infinite;
+        }
+        .slide {
+            height: 300px;
+            width: 200px;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+        }
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-200px * 11)); }
         }
 
         /* CONTADOR */
         .timer-box {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            padding: 0 20px;
         }
         .timer {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px; /* Menor gap para caber na tela */
             margin-top: 15px;
             font-family: 'Playfair Display', serif;
             color: var(--primary);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
+        }
+        .timer div {
+            min-width: 60px;
         }
         .timer span {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-family: 'Montserrat', sans-serif;
-            color: #888;
+            color: #999;
             letter-spacing: 1px;
             margin-top: 5px;
+            text-transform: uppercase;
         }
 
+        /* BOTÃO DE SOM (Estilo iOS) */
         .sound-btn {
             position: fixed;
-            bottom: 20px; right: 20px;
+            bottom: max(20px, env(safe-area-inset-bottom)); /* Respeita a barra home */
+            right: 20px;
             width: 50px; height: 50px;
-            background: white;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
             cursor: pointer;
-            z-index: 100;
-            font-size: 1.5rem;
+            z-index: 999;
+            font-size: 1.4rem;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        @media (max-width: 600px) {
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-top: 20px;
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+        }
+
+        /* AJUSTES PARA TELAS PEQUENAS (iPhone 11/12/13/14/15/16 normal) */
+        @media (max-width: 390px) {
             header h1 { font-size: 2.5rem; }
-            .letter-container { padding: 20px; width: 90%; }
-            .letter-text { font-size: 1rem; }
-            .timer { font-size: 1.5rem; gap: 10px; }
+            .btn-enter { padding: 15px 40px; font-size: 1rem; }
+            .timer { font-size: 1.3rem; gap: 10px; }
+            .timer div { min-width: 50px; }
         }
     </style>
 </head>
@@ -228,7 +264,9 @@
 
     <div id="overlay">
         <h1>Para o AMOR DA MINHA VIDA ❤️</h1>
-        <p style="margin-bottom: 30px; color: #666; font-size: 0.9rem;">(Aumente o som do celular)</p>
+        <p style="margin-bottom: 30px; color: #777; font-size: 0.95rem; max-width: 80%; line-height: 1.5;">
+            Coloque os fones ou aumente o som<br>
+        </p>
         <button class="btn-enter" onclick="startSurprise()">Ver Surpresa</button>
     </div>
 
@@ -243,7 +281,7 @@
         <header>
             <p class="date">05/07/2025 • 05/01/2026</p>
             <h1>6 Meses de Nós</h1>
-            <p style="font-size: 1.1rem; color: #666;">Rodrigo & Julia</p>
+            <p style="font-size: 1rem; color: #777; font-weight: 500;">Rodrigo & Julia</p>
         </header>
 
         <div class="video-container">
@@ -258,7 +296,7 @@
                 <br>
                 <p>Antes de te conhecer, eu era alguém diferente: um pouco mais frio, fechado e quieto (ainda sou um pouco kkkk), mas você despertou uma versão minha que eu nem sabia que existia. Aprendi a ceder, a mudar atitudes que te magoavam e a evoluir por nós dois. E estou disposto a melhorar cada vez mais, só para te ver feliz.</p>
                 <br>
-                <p>Meu maior sonho com você é olhar para o futuro e nos ver com 80 anos, sentados em nossas cadeiras, de mãos dadas, lembrando de toda a história linda que construímos, da nossa família e da nossa linda união.</p>
+                <p>Meu maior sonho com você é olhar para o futuro e nos ver com 80 anos, sentados em nossas cadeiras, de mãos dadas, lembrando de toda a história linda que construímos, da nossa família e da nossa linda relação.</p>
                 <br>
                 <p>Você é meu porto seguro, meu presente e meu futuro. Muito obrigado por tudo.</p>
             </div>
@@ -299,7 +337,7 @@
         </div>
 
         <div class="timer-box">
-            <p style="color: #666; margin-bottom: 10px;">Contando cada segundo com você:</p>
+            <p style="color: #888; margin-bottom: 10px; font-size: 0.9rem;">Contando cada segundo com você:</p>
             <div class="timer">
                 <div><b id="d">0</b><span>DIAS</span></div>
                 <div><b id="h">0</b><span>HORAS</span></div>
@@ -308,8 +346,8 @@
             </div>
         </div>
         
-        <footer style="text-align: center; font-size: 0.8rem; color: #aaa; margin-top: 40px;">
-            Feito com todo amor do mundo para o AMOR DA MINHA VIDA
+        <footer>
+            Feito com todo amor do mundo • 2026
         </footer>
     </div>
 
@@ -320,17 +358,21 @@
             var music = document.getElementById('bgMusic');
             var video = document.getElementById('introVideo');
 
-            music.volume = 0.5;
+            // 1. Toca música
+            music.volume = 0.6;
             music.play().catch(err => console.log("Erro música:", err));
             
+            // 2. Garante o vídeo tocando
             video.play().catch(err => console.log("Erro vídeo:", err));
 
+            // 3. Transição suave
             overlay.style.opacity = '0';
             setTimeout(() => {
                 overlay.style.display = 'none';
                 main.style.display = 'block';
+                // Pequeno delay para a opacidade funcionar
                 setTimeout(() => main.style.opacity = '1', 50);
-            }, 1000);
+            }, 800);
         }
 
         function toggleAudio() {
@@ -339,6 +381,7 @@
             else audio.pause();
         }
 
+        // Contador
         const startDate = new Date("2025-07-05T00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
